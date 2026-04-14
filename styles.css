@@ -1,0 +1,51 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffeab0;
+  color: #222;
+  text-align: leading;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
+}
+
+button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #357abd;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+#allOffBtn {
+  background-color: #e94e4e;
+  margin-top: 20px;
+}
+
+#allOffBtn:hover {
+  background-color: #c73c3c;
+}

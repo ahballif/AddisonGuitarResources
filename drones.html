@@ -2,14 +2,17 @@
 <html>
 <head>
     <title>Drones</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <p><a href="index.html">Return to main page</a></p>
     <h1>Drones</h1>
     <p>Here are some resources for creating drones to practice with. Practicing scales with drones can be a useful exercise. Drones can help you to internalize the root of the key. With the root in mind, pay attention to how the other notes in the key sound in their relationship to the root. </p>
 
-    <p>First I have included a javascript tool that can play any drone in a few different octaves. After the javascript synthesizer tool I have included several links to some higher quality drones that can be found on YouTube. </p>
+    <p>First I have included a javascript tool that can play any drone in a few different octaves. After the javascript synthesizer tool I have included several links to some higher quality drones that can be found on YouTube. I have also included a metronome that you can use while you practice with the drones. </p>
 
     <div id="controls"></div>
+<button id="allOffBtn">All Off</button>
 
 <script>
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -92,7 +95,39 @@ notes.forEach(note => {
 
   container.appendChild(btn);
 });
+
+document.getElementById("allOffBtn").onclick = () => {
+  for (const noteName in activeOscillators) {
+    const { osc, gain } = activeOscillators[noteName];
+
+    // Fade out
+    gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+
+    // Stop oscillator after fade
+    setTimeout(() => {
+      osc.stop();
+    }, 200);
+  }
+
+  // Clear all active oscillators
+  activeOscillators = {};
+
+  // Reset all button labels back to "ON"
+  const buttons = document.querySelectorAll("#controls button");
+  buttons.forEach(btn => {
+    btn.textContent = btn.textContent.replace("OFF", "ON");
+  });
+};
+
 </script>
+
+<p>
+<iframe src="https://guitarapp.com/metronome.html?embed=true&tempo=120"
+        style="width:360px;height:520px;border:none;border-radius:8px;">
+</iframe>
+</p>
+
+<p>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qpQ6c0NotCY?si=pfGjZ_sZpAs5VXLW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -118,7 +153,7 @@ notes.forEach(note => {
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5vBDWMOyRCM?si=sD9JebpntKQdrjwv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-
+</p>
 
 
 </body>
