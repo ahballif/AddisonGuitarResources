@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drones</title>
+</head>
+<body>
+    <h1>Drones</h1>
+    <p>Here are some resources for creating drones to practice with. Practicing scales with drones can be a useful exercise. Drones can help you to internalize the root of the key. With the root in mind, pay attention to how the other notes in the key sound in their relationship to the root. </p>
+
+    <p>First I have included a javascript tool that can play any drone in a few different octaves. After the javascript synthesizer tool I have included several links to some higher quality drones that can be found on YouTube. </p>
+
+    <div id="controls"></div>
+
+<script>
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
+
+let activeOscillators = {};
+
+// Chromatic notes from C2 to B3 (cello-friendly range)
+const notes = [
+  {name: "C2", freq: 65.41},
+  {name: "C#2/Db2", freq: 69.30},
+  {name: "D2", freq: 73.42},
+  {name: "D#2/Eb2", freq: 77.78},
+  {name: "E2", freq: 82.41},
+  {name: "F2", freq: 87.31},
+  {name: "F#2/Gb2", freq: 92.50},
+  {name: "G2", freq: 98.00},
+  {name: "G#2/Ab2", freq: 103.83},
+  {name: "A2", freq: 110.00},
+  {name: "A#2/Bb2", freq: 116.54},
+  {name: "B2", freq: 123.47},
+
+  {name: "C3", freq: 130.81},
+  {name: "C#3/Db3", freq: 138.59},
+  {name: "D3", freq: 146.83},
+  {name: "D#3/Eb3", freq: 155.56},
+  {name: "E3", freq: 164.81},
+  {name: "F3", freq: 174.61},
+  {name: "F#3/Gb3", freq: 185.00},
+  {name: "G3", freq: 196.00},
+  {name: "G#3/Ab3", freq: 207.65},
+  {name: "A3", freq: 220.00},
+  {name: "A#3/Bb3", freq: 233.08},
+  {name: "B3", freq: 246.94},
+
+  {name: "C4", freq: 261.63}
+];
+
+const container = document.getElementById("controls");
+
+notes.forEach(note => {
+  const btn = document.createElement("button");
+  btn.textContent = note.name + " ON";
+  btn.style.margin = "5px";
+
+  btn.onclick = async () => {
+    if (audioCtx.state === "suspended") {
+      await audioCtx.resume();
+    }
+
+    if (activeOscillators[note.name]) {
+      // Turn OFF
+      activeOscillators[note.name].gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+      setTimeout(() => {
+        activeOscillators[note.name].osc.stop();
+        delete activeOscillators[note.name];
+      }, 200);
+
+      btn.textContent = note.name + " ON";
+    } else {
+      // Turn ON
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = "sine"; // smooth drone
+      osc.frequency.value = note.freq;
+
+      gain.gain.setValueAtTime(0, audioCtx.currentTime);
+      gain.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.05); // fade in
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start();
+
+      activeOscillators[note.name] = {osc, gain};
+      btn.textContent = note.name + " OFF";
+    }
+  };
+
+  container.appendChild(btn);
+});
+</script>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qpQ6c0NotCY?si=pfGjZ_sZpAs5VXLW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UfY3u7xvgf8?si=hoAIJnqulzxYCA2U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0_iqlSl0o4o?si=Z-1kTUJixh2WNu-B" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MimVnBAuYqA?si=d5eXUGo_ZBs2h5t0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LxFwYJlnmqo?si=hw0lCgpxV3FJC8QQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ygo0ZimLfsQ?si=rcqdXirxLpBcepMJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jgFNsz_9w4A?si=-rcJXPuraJqNCfcz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/oYLSMPvGoL8?si=v0F2cnv9p34-ww0I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cC4DzsV4ivs?si=lfZaQg-wP5Gz8l94" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NUFgXjFL8YM?si=Jc5_WC2cZVwrnq-y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IvXXdGhJA1Q?si=4yDnu1WcRsIfGc6Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5vBDWMOyRCM?si=sD9JebpntKQdrjwv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+
+
+</body>
+</html>
+
