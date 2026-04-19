@@ -20,102 +20,121 @@ const audioCtx = new AudioContext();
 
 let activeOscillators = {};
 
-// Chromatic notes from C2 to B3 (cello-friendly range)
-const notes = [
-  {name: "C2", freq: 65.41},
-  {name: "C#2/Db2", freq: 69.30},
-  {name: "D2", freq: 73.42},
-  {name: "D#2/Eb2", freq: 77.78},
-  {name: "E2", freq: 82.41},
-  {name: "F2", freq: 87.31},
-  {name: "F#2/Gb2", freq: 92.50},
-  {name: "G2", freq: 98.00},
-  {name: "G#2/Ab2", freq: 103.83},
-  {name: "A2", freq: 110.00},
-  {name: "A#2/Bb2", freq: 116.54},
-  {name: "B2", freq: 123.47},
-
-  {name: "C3", freq: 130.81},
-  {name: "C#3/Db3", freq: 138.59},
-  {name: "D3", freq: 146.83},
-  {name: "D#3/Eb3", freq: 155.56},
-  {name: "E3", freq: 164.81},
-  {name: "F3", freq: 174.61},
-  {name: "F#3/Gb3", freq: 185.00},
-  {name: "G3", freq: 196.00},
-  {name: "G#3/Ab3", freq: 207.65},
-  {name: "A3", freq: 220.00},
-  {name: "A#3/Bb3", freq: 233.08},
-  {name: "B3", freq: 246.94},
-
-  {name: "C4", freq: 261.63}
+// Base note names with semitone offsets
+const baseNotes = [
+  {name: "C", offset: 0},
+  {name: "C#/Db", offset: 1},
+  {name: "D", offset: 2},
+  {name: "D#/Eb", offset: 3},
+  {name: "E", offset: 4},
+  {name: "F", offset: 5},
+  {name: "F#/Gb", offset: 6},
+  {name: "G", offset: 7},
+  {name: "G#/Ab", offset: 8},
+  {name: "A", offset: 9},
+  {name: "A#/Bb", offset: 10},
+  {name: "B", offset: 11}
 ];
+
+// Generate all notes across octaves 3-6
+const allNotes = [];
+const octaves = [3, 4, 5, 6];
+
+baseNotes.forEach(baseNote => {
+  octaves.forEach(octave => {
+    const semitone = (octave - 1) * 12 + baseNote.offset;
+    const freq = 16.35 * Math.pow(2, semitone / 12); // C0 = 16.35 Hz
+    allNotes.push({
+      name: baseNote.name + octave,
+      freq: freq,
+      baseName: baseNote.name,
+      octave: octave
+    });
+  });
+});
 
 const container = document.getElementById("controls");
 
-notes.forEach(note => {
-  const btn = document.createElement("button");
-  btn.textContent = note.name + " ON";
-  btn.style.margin = "5px";
+// Create button grid organized by octave rows and note columns
+const octaveGroups = {};
+octaves.forEach(octave => {
+  octaveGroups[octave] = document.createElement("div");
+  octaveGroups[octave].style.marginBottom = "15px";
+  
+  const octaveLabel = document.createElement("strong");
+  octaveLabel.textContent = "Octave " + octave + ": ";
+  octaveLabel.style.marginRight = "10px";
+  octaveGroups[octave].appendChild(octaveLabel);
+  
+  baseNotes.forEach(baseNote => {
+    const noteData = allNotes.find(n => n.baseName === baseNote.name && n.octave === octave);
+    if (noteData) {
+      const btn = document.createElement("button");
+      btn.textContent = noteData.name;
+      btn.style.margin = "3px";
+      btn.style.padding = "8px 12px";
 
-  btn.onclick = async () => {
-    if (audioCtx.state === "suspended") {
-      await audioCtx.resume();
+      btn.onclick = async () => {
+        if (audioCtx.state === "suspended") {
+          await audioCtx.resume();
+        }
+
+        if (activeOscillators[noteData.name]) {
+          // Turn OFF
+          activeOscillators[noteData.name].gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+          setTimeout(() => {
+            activeOscillators[noteData.name].osc.stop();
+            delete activeOscillators[noteData.name];
+          }, 200);
+
+          btn.style.backgroundColor = "";
+          btn.style.color = "";
+        } else {
+          // Turn ON
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc.type = "sine";
+          osc.frequency.value = noteData.freq;
+
+          gain.gain.setValueAtTime(0, audioCtx.currentTime);
+          gain.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.05);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start();
+
+          activeOscillators[noteData.name] = {osc, gain};
+          btn.style.backgroundColor = "#4CAF50";
+          btn.style.color = "white";
+        }
+      };
+
+      octaveGroups[octave].appendChild(btn);
     }
-
-    if (activeOscillators[note.name]) {
-      // Turn OFF
-      activeOscillators[note.name].gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
-      setTimeout(() => {
-        activeOscillators[note.name].osc.stop();
-        delete activeOscillators[note.name];
-      }, 200);
-
-      btn.textContent = note.name + " ON";
-    } else {
-      // Turn ON
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      osc.type = "sine"; // smooth drone
-      osc.frequency.value = note.freq;
-
-      gain.gain.setValueAtTime(0, audioCtx.currentTime);
-      gain.gain.setTargetAtTime(0.2, audioCtx.currentTime, 0.05); // fade in
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start();
-
-      activeOscillators[note.name] = {osc, gain};
-      btn.textContent = note.name + " OFF";
-    }
-  };
-
-  container.appendChild(btn);
+  });
+  
+  container.appendChild(octaveGroups[octave]);
 });
 
 document.getElementById("allOffBtn").onclick = () => {
   for (const noteName in activeOscillators) {
     const { osc, gain } = activeOscillators[noteName];
 
-    // Fade out
     gain.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
 
-    // Stop oscillator after fade
     setTimeout(() => {
       osc.stop();
     }, 200);
   }
 
-  // Clear all active oscillators
   activeOscillators = {};
 
-  // Reset all button labels back to "ON"
   const buttons = document.querySelectorAll("#controls button");
   buttons.forEach(btn => {
-    btn.textContent = btn.textContent.replace("OFF", "ON");
+    btn.style.backgroundColor = "";
+    btn.style.color = "";
   });
 };
 

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Scale Degree Quiz</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        padding: 50px 20px;
+        margin: 0;
+        background: #f5f5f5;
+        line-height: 1.6;
+        text-align: left;
+    }
+    p {
+        max-width: 700px;
+    }
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        display: inline-block;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-top: 30px;
+    }
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+    input {
+        padding: 10px;
+        font-size: 16px;
+        width: 120px;
+        text-align: center;
+    }
+    .toggle {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<a href="index.html">Return to home page.</a>
+
+    <h1>Scale Degrees Quiz</h1>
+
+    <p>Here is a quiz that can help you practice memorizing the notes in each key. 
+        It is useful to know how each note relates to the root of a key.
+        In the game below, you will be prompted with a key and a scale degree.
+        Type the note name of the scale degree in that key. 
+        </p>
+
+        <p>
+        By default the game only uses scale degrees of the major scale.
+        To include all scale degrees, click the checkmark below. 
+    </p>
+
+<div class="card">
+    <h2 id="question">Loading...</h2>
+    
+    <input id="answer" placeholder="Answer">
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <button onclick="newQuestion()">Next</button>
+
+    <p id="result"></p>
+
+    <div class="toggle">
+        <label>
+            <input type="checkbox" id="chromaticToggle">
+            Include chromatic (♭2, ♯4, ♭5, etc.)
+        </label>
+    </div>
+</div>
+
+<script>
+// Standard key roots only (no weird spellings)
+const roots = [
+    "C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"
+];
+
+// Pitch class mapping (accept enharmonics)
+const pitchClasses = {
+    "C":0, "B#":0,
+    "C#":1, "Db":1,
+    "D":2,
+    "D#":3, "Eb":3,
+    "E":4, "Fb":4,
+    "E#":5, "F":5,
+    "F#":6, "Gb":6,
+    "G":7,
+    "G#":8, "Ab":8,
+    "A":9,
+    "A#":10, "Bb":10,
+    "B":11, "Cb":11
+};
+
+// Preferred display names (clean output)
+const displayNotes = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
+
+// Degree → semitone
+const degreeMap = {
+    "1":0, "2":2, "3":4, "4":5, "5":7, "6":9, "7":11,
+    "♭2":1, "♭3":3, "♯4":6, "♭5":6, "♭6":8, "♭7":10
+};
+
+let currentRoot = "";
+let currentDegree = "";
+let correctPC = 0;
+let correctAnswer = "";
+let nextQuestionTimeout = null;
+
+// Parse user input (handles bb, ##, etc.)
+function parseNote(note) {
+    note = note.trim();
+
+    let letter = note[0].toUpperCase();
+    let rest = note.slice(1);
+
+    let baseMap = {C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+    let value = baseMap[letter];
+
+    for (let char of rest) {
+        if (char === "b" || char === "♭") value -= 1;
+        if (char === "#" || char === "♯") value += 1;
+    }
+
+    return (value + 120) % 12;
+}
+
+function getNote(pc) {
+    return displayNotes[pc];
+}
+
+function newQuestion() {
+    document.getElementById("result").innerText = "";
+    const answerInput = document.getElementById("answer");
+    answerInput.value = "";
+
+    const chromatic = document.getElementById("chromaticToggle").checked;
+
+    currentRoot = roots[Math.floor(Math.random() * roots.length)];
+
+    let possibleDegrees = ["1","2","3","4","5","6","7"];
+
+    if (chromatic) {
+        possibleDegrees.push("♭2","♭3","♯4","♭5","♭6","♭7");
+    }
+
+    currentDegree = possibleDegrees[Math.floor(Math.random() * possibleDegrees.length)];
+
+    correctPC = (pitchClasses[currentRoot] + degreeMap[currentDegree]) % 12;
+    correctAnswer = getNote(correctPC);
+
+    document.getElementById("question").innerText =
+        `What is the ${currentDegree} in ${currentRoot}?`;
+    document.getElementById("answer").focus();
+}
+
+function checkAnswer() {
+    let userInput = document.getElementById("answer").value;
+
+    try {
+        let userPC = parseNote(userInput);
+
+        if (userPC === correctPC) {
+            document.getElementById("result").innerText = "✅ Correct!";
+            clearTimeout(nextQuestionTimeout);
+            nextQuestionTimeout = setTimeout(() => {
+                newQuestion();
+            }, 1000);
+        } else {
+            document.getElementById("result").innerText =
+                `❌ Correct answer: ${correctAnswer}`;
+            document.getElementById("answer").focus();
+        }
+    } catch {
+        document.getElementById("result").innerText = "⚠️ Invalid input";
+        document.getElementById("answer").focus();
+    }
+}
+
+// Enter key submits
+document.getElementById("answer").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkAnswer();
+});
+
+// Start
+newQuestion();
+</script>
+
+</body>
+</html>
