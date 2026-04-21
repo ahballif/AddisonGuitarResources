@@ -1,0 +1,55 @@
+\ProvidesPackage{guitardiagrams}
+\RequirePackage{tikz}
+
+% ---------- Key setup ----------
+\pgfkeys{
+  /fretboard/.is family,
+  /fretboard,
+  frets/.initial=5,
+  strings/.initial=6,
+  startfret/.initial=1,
+  fretwidth/.initial=1,
+  stringsep/.initial=0.7
+}
+
+% ---------- Main command ----------
+\newcommand{\fretboard}[2][]{
+  \pgfkeys{/fretboard/.cd, #1}
+
+  \begin{center}
+  \begin{tikzpicture}[x=\pgfkeysvalueof{/fretboard/fretwidth},
+                      y=\pgfkeysvalueof{/fretboard/stringsep}, scale=50]
+
+    % Extract values
+    \def\frets{\pgfkeysvalueof{/fretboard/frets}}
+    \def\strings{\pgfkeysvalueof{/fretboard/strings}}
+    \def\startfret{\pgfkeysvalueof{/fretboard/startfret}}
+
+    % ---------- Draw strings ----------
+    \foreach \s in {1,...,\strings} {
+      \draw (0,\s) -- (\frets,\s);
+    }
+
+    % ---------- Draw frets ----------
+    \foreach \f in {0,...,\frets} {
+      \draw (\f,1) -- (\f,\strings);
+    }
+
+    % ---------- Draw dots with labels ----------
+    % Input format: f/s/{label}
+    \foreach \s/\f/\lbl in {#2} {
+        % dot
+        \fill (\f-0.5,\s) circle (0.3);
+
+        % label (centered)
+        \node[circle, text=white] at (\f-0.5,\s) {\lbl};
+    }
+
+    % ---------- Fret number (if not open position) ----------
+    % \ifnum\startfret>1
+    %   \node[left] at (0, {(\strings+1)/2}) {\small \startfret};
+    % \fi
+
+  \end{tikzpicture}
+\end{center}
+}

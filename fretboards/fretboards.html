@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fretboards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div id="fretboard"></div>
+
+<script>
+function drawFretboard(container, frets=5, strings=6, dots=[]) {
+    const width = 300;
+    const height = 120;
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", width);
+    svg.setAttribute("height", height);
+
+    const fretSpacing = width / frets;
+    const stringSpacing = height / (strings - 1);
+
+    // frets
+    for (let i = 0; i <= frets; i++) {
+        let line = document.createElementNS(svgNS, "line");
+        line.setAttribute("x1", i * fretSpacing);
+        line.setAttribute("y1", 0);
+        line.setAttribute("x2", i * fretSpacing);
+        line.setAttribute("y2", height);
+        line.setAttribute("stroke", "black");
+        svg.appendChild(line);
+    }
+
+    // strings
+    for (let i = 0; i < strings; i++) {
+        let line = document.createElementNS(svgNS, "line");
+        line.setAttribute("x1", 0);
+        line.setAttribute("y1", i * stringSpacing);
+        line.setAttribute("x2", width);
+        line.setAttribute("y2", i * stringSpacing);
+        line.setAttribute("stroke", "black");
+        svg.appendChild(line);
+    }
+
+    // dots: [{fret:1, string:0}, ...]
+    dots.forEach(d => {
+        let circle = document.createElementNS(svgNS, "circle");
+        circle.setAttribute("cx", (d.fret - 0.5) * fretSpacing);
+        circle.setAttribute("cy", d.string * stringSpacing);
+        circle.setAttribute("r", 8);
+        circle.setAttribute("fill", "black");
+        svg.appendChild(circle);
+    });
+
+    document.getElementById(container).appendChild(svg);
+}
+
+// Example: C major scale fragment
+drawFretboard("fretboard", 5, 6, [
+    {fret:1,string:5},
+    {fret:3,string:5},
+    {fret:2,string:4},
+    {fret:3,string:4}
+]);
+</script>
+
+
+
+</body>
+</html>
+
