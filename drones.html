@@ -11,8 +11,18 @@
 
     <p>First I have included a javascript tool that can play any drone in a few different octaves. After the javascript synthesizer tool I have included several links to some higher quality drones that can be found on YouTube. I have also included a metronome that you can use while you practice with the drones. </p>
 
+
+
     <div id="controls"></div>
 <button id="allOffBtn">All Off</button>
+
+<p>Here is a quick tool to help you choose a random key to practice. </p>
+<div style="margin-top: 15px;">
+  <button id="randomKeyBtn">Random Key</button>
+  <p id="randomKeyDisplay" style="font-size: 18px; font-weight: bold; margin-top: 10px;"></p>
+</div>
+
+<p>Here is a metronome you can use while practicing.</p>
 
 <script>
 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -136,6 +146,14 @@ document.getElementById("allOffBtn").onclick = () => {
     btn.style.backgroundColor = "";
     btn.style.color = "";
   });
+};
+
+// Random Key Feature
+const keys = ["C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B"];
+
+document.getElementById("randomKeyBtn").onclick = () => {
+  const randomKey = keys[Math.floor(Math.random() * keys.length)];
+  document.getElementById("randomKeyDisplay").textContent = "Random Key: " + randomKey;
 };
 
 </script>
