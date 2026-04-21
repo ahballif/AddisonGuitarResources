@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.27)  21 APR 2026 12:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.27)  21 APR 2026 14:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -618,10 +618,10 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 22.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 22.
-<hand_figure.png, id=11, 374.39874pt x 348.30125pt>
+<hand_figure.png, id=23, 374.39874pt x 348.30125pt>
 File: hand_figure.png Graphic file (type png)
 <use hand_figure.png>
-Package pdftex.def Info: hand_figure.png  used on input line 31.
+Package pdftex.def Info: hand_figure.png  used on input line 30.
 (pdftex.def)             Requested size: 130.08731pt x 121.01971pt.
 
 [1
@@ -631,33 +631,28 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
 s been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.51 }
+l.50 }
        <./hand_figure.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 58.
+(Font)              <12> on input line 57.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 58.
+(Font)              <8> on input line 57.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 58.
+(Font)              <6> on input line 57.
  [2] [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 124.
- [4] (./left-right-scale-system.aux)
-
-Package rerunfilecheck Warning: File `left-right-scale-system.out' has changed.
-
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `left-right-scale-system.out':
-(rerunfilecheck)             Before: 14D310A62512679D01E5C29DBF1A94A4;162
-(rerunfilecheck)             After:  50AB9F64176D29BA45E60A9B58C7BEC1;329.
+(Font)              <5> on input line 123.
+ [4] [5] [6] [7] [8]
+(./left-right-scale-system.aux)
+Package rerunfilecheck Info: File `left-right-scale-system.out' has not changed
+.
+(rerunfilecheck)             Checksum: E04AD4DC8F5DE32FFAD89D259AAB911C;639.
  ) 
 Here is how much of TeX's memory you used:
- 19395 strings out of 476025
- 369449 string characters out of 5790017
- 1865388 words of memory out of 5000000
- 39533 multiletter control sequences out of 15000+600000
+ 19417 strings out of 476025
+ 369671 string characters out of 5790017
+ 1870388 words of memory out of 5000000
+ 39539 multiletter control sequences out of 15000+600000
  517148 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  117i,8n,118p,426b,684s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -668,10 +663,10 @@ usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
 al/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on left-right-scale-system.pdf (4 pages, 210257 bytes).
+Output written on left-right-scale-system.pdf (8 pages, 224860 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 130 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
+ 50 words of extra memory for PDF output out of 10000 (max. 10000000)
 

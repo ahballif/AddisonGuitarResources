@@ -12,7 +12,7 @@
 \newtheorem{exercise}{Exercise}
 
 
-\title{Fret-Per-String Movable Scale Patterns}
+\title{Left/Right Movable Scale Patterns}
 \author{Addison Ballif}
 \date{\today}
 
@@ -24,7 +24,6 @@ In this document I describe a system for movable scale patterns on the guitar. M
 The advantage of using movable scale patterns is that they are not specific to a given key. 
 
 The goal of this document is to teach you a system for playing scales that should open up the fretboard for you in melody playing and soloing. 
-
 This system breaks all major scales into two types. We will call them the ``left'' type and the ``right'' type based on which side of the hand they start on. 
 \begin{figure}[H]
 \centering
@@ -55,7 +54,7 @@ To play this pattern, start with your middle finger (finger 2), and place your h
 We use this scale by starting R on the key of the scale we are trying to play. For example, if you want to play a G major scale, you would start this scale pattern with the bottom R on fret 3. 
 
 \begin{exercise}
-Play the following major scales starting on the E string in this order: A, C, G, B$\flat$, F$\sharp$.
+Play the following major scales starting on the E string in this order: A, C, G, B$\flat$, F$\sharp$. Start on the bottom note and play each note up to the top note. Then go back down. 
 \end{exercise}
 
 When playing this scale pattern on the A string it looks exactly the same. 
@@ -117,8 +116,8 @@ Play the following major scales starting on the G string in this order: E$\flat$
 
 Now you know all four of the left type major scales, you can start to play in different places over the fretboard and in any key! The following exercise gives a good way to practice these scale patterns. 
 
-\begin{exercise}
-Pick a random key. Then for each of the first four strings (E, A, D, G) play the major scale using the left type major scale pattern. 
+\begin{exercise} \label{ex:randomkey1}
+Pick a random key. Then for each of the first four strings (E, A, D, G) play the major scale using the left type major scale pattern. Start on the bottom note and play to the top of the scale pattern. Then come back down. 
 \end{exercise}
 
 It is useful to do this exercise over a drone.\footnote{There is a page on my website that has drones in every key. It can be found \href{https://ahballif.github.io/AddisonGuitarResources/drones.html}{here.}}
@@ -147,10 +146,141 @@ Similar to previous, we will place one finger per fret. You will notice that on 
 The order of fingers used should be 4-1-3-4-1-3-1-2.
 
 \begin{exercise}
-Play the following major scales using the right type scale pattern in this order: C, A, E$\flat$, B$\flat$.
+Play the following major scales starting on the low E using the right type scale pattern in this order: C, A, E$\flat$, B$\flat$.
 \end{exercise}
 
+The scale pattern for the A string is mostly the same, except we no longer need to shift to reach the top two tones. 
+\fretboard[frets=4]{
+    2/4/{R},
+    3/1/{},
+    3/3/{},
+    3/4/{},
+    4/1/{},
+    4/3/{},
+    5/1/{},
+    5/2/{R}
+}
 
+\begin{exercise}
+Play the following major scales starting on the A string using the right type scale pattern in this order: D, G, E$\flat$, F$\sharp$.
+\end{exercise}
+
+The scale pattern for the D string is given below.
+\fretboard[frets=4]{
+    3/4/{R},
+    4/1/{},
+    4/3/{},
+    4/4/{},
+    5/2/{},
+    5/4/{},
+    6/1/{},
+    6/2/{R}
+}
+Notice that this time the fingerings do change a little bit in order to keep one finger per fret. The order of fingers used should be 4-1-3-4-2-4-1-2. 
+
+\begin{exercise}
+Play the following major scales starting on the D string using the right type scale pattern in this order: B$\flat$, G, C, A$\flat$.
+\end{exercise}
+
+The last scale pattern (starting on the G string) only plays the first half of the major scale. We will see more how to play the rest with this pattern later. For now, just play to the top of the scale pattern and then go back down. 
+
+The other difference with this scale pattern is that it starts on the ring finger (finger 3) instead of the pinkie finger. This preserves the one finger per fret spacing. 
+
+\fretboard[frets=4]{
+    4/3/{R},
+    5/1/{},
+    5/3/{},
+    5/4/{},
+    6/1/{},
+    6/3/{}
+}
+
+The order of fingers used should be 3-1-3-4-1-3. 
+
+\begin{exercise}
+Play the following major scales (first 6 notes) starting on the G string using the right type scale pattern in this order: C, F, D.
+\end{exercise}
+
+We are now able to expand Exercise \ref{ex:randomkey1} to include both scale patterns. 
+
+\begin{exercise} \label{ex:randomkey2}
+Pick a random key. Then for each of the first four strings (E, A, D, G) play the major scale using the left type major scale pattern. Then do the same using the right type major scale pattern. 
+\end{exercise}
+
+\section{Combining Both Patterns}
+By now you may have noticed that if a scale pattern starts on the left side of the hand, it will end on the right side of the hand, and vise-versa. This powerful pattern is what will allow us to play across the octave, meaning from one octave to the octave above. 
+
+Consider the two octave major scale shown below. 
+
+\fretboard[frets=4]{
+    1/2/{R},
+    1/4/{},
+    2/1/{},
+    2/2/{},
+    2/4/{},
+    3/1/{},
+    3/3/{},
+    3/4/{R},
+    4/1/{},
+    4/3/{},
+    4/4/{},
+    5/2/{},
+    5/4/{},
+    6/1/{},
+    6/2/{R}
+}
+
+This scale pattern starts using the left type pattern on the low E string. When it gets to the octave it lands on figure 4, which sets it up to use the right type pattern. It then uses the right type pattern to go to the second octave. 
+
+\begin{exercise}
+Play the two octave major scale shown above in the following keys: G, C, B$\flat$. 
+\end{exercise}
+
+Another possible two octave scale that we could have would be the one shown below. 
+
+\fretboard[frets=5]{
+    1/5/{R},
+    2/2/{},
+    2/4/{},
+    2/5/{},
+    3/2/{},
+    3/4/{},
+    4/1/{},
+    4/2/{R},
+    4/4/{},
+    5/2/{},
+    5/3/{},
+    5/5/{},
+    6/2/{},
+    6/4/{},
+    6/5/{R}
+}
+
+To play this scale, we slide from the 7th note to the 8th to start the second pattern on the index finger (finger 1). Another way to play it would be to shift up a string for the G string, and then shift back up for the B and E strings. This second way works well for the way back down. 
+
+\begin{exercise}
+Play the two octave major scale shown above in the following keys: B$\flat$, C, A$\flat$. 
+\end{exercise}
+
+\section{Additional Exercises}
+
+We typically don't play music by reciting the scales note for note. The following exercises are intended to help you use the scales to build fluency rather than memorizing the patterns directly. 
+
+\begin{exercise}
+Pick a random key. Starting on the 5th, play up to the 5th in the second octave and then back down. Do this for two different places on the fretboard. 
+\end{exercise}
+
+\begin{exercise}[Thirds]
+Pick a random key. Play the notes of the scale in the following sequence.
+$$ 1, 3, 2, 4, 3, 5, 4, 6, \dots$$
+Do this for two different places on the fretboard. 
+\end{exercise}
+
+The scales patterns can also give us a reference for finding notes to play for playing melodies. 
+
+\begin{exercise}
+Pick a simple melody in a major key. Play the melody in three places on the fretboard by choosing a scale pattern and the using the notes of the scale pattern to identify the notes in the melody. 
+\end{exercise}
 
 
 
