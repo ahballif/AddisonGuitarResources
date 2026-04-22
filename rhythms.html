@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rhythms and Strumming with a Grid</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <p><a href="index.html">Return to main page</a></p>
+    <h1>Rhythms and Strumming with a Grid</h1>
+    
+    <p>In most music that we listen to, the music has some beat. This beat is divided into measures or bars. 
+      Usually you can hear or feel the length of a bar when you listen to a song. 
+      Most common is for a song to have its bars each with 4 beats. When this is the case we say the song is in 4. 
+      It is also common to have songs with 3 beats per bar, and we say the song is in 3. 
+    The tempo of the song refers to the speed at which the beats occur.
+      </p><p>
+
+      Below are a couple examples of songs that are in 4. Listen and try to tap your foot to the music to identify the beats. 
+      Then pay attention groupings of four beats. 
+      </p>
+
+    <p>
+    <iframe width="200" height="113" src="https://www.youtube.com/embed/gn19U2lMNnw?si=2qpBOfbYdUyp5iFv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <iframe width="200" height="113" src="https://www.youtube.com/embed/tiBaBca7-rY?si=w4Odd3p7QNLrk97h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </p>
+
+    <p>Below is an example of a song in 3. Again, tap your foot to identify the beat, and listen to the groupings of three. </p>
+
+    <p>
+      <iframe width="200" height="113" src="https://www.youtube.com/embed/6CMclLT_Hjg?si=MO_MG7WeJ_P7hwTy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </p>
+
+ 
+<p>
+  Classifying songs into those that have 4 beats per bar and 3 beats per bar isn't an exact science, so don't worry if you find a song that is difficult to identify. 
+  Sometimes a song is fast enough that we can't tap our foot comfortably to the beat, so our brains group beats together into larger beats, 
+  and then bars are made out of these "big beats." This is common when dividing the bar into multiples of 3. Below are some examples.
+  These examples have 12 beats per bar, but there are big beats made out of 3 small beats, which creates the sound of being in 3 and of being in 4 at the same time. 
+
+</p>
+
+<p>
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/7iDfvoqOhD8?si=Vle5-IyLVJLpWFgO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/MUZwblurraA?si=GArXTL1WqNQMq0Rg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/reYRmpiVSyA?si=rmViomOX0eDd-se1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</p>
+
+<p>To be able to talk more about beats and bars and rhythms, we need a method of notating these things. In music notation we have different types of notes. The most basic is called a quarter note. It is called a quarter note because when a song is in 4 (which is the most common) it represents a quarter of a bar (or measure). Quarter notes are notated with a dot and a stem, as shown below. Below shows two measures of quarter notes. </p>
+
+<div id="output"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.3/build/cjs/vexflow.js"></script>
+<script>
+// This approach to importing classes works in CJS contexts (i.e., a regular <script src="..."> tag).
+const { Stave, StaveNote, Beam, Formatter, Renderer } = Vex;
+
+// Create an SVG renderer and attach it to the DIV element with id="output".
+const div = document.getElementById("output");
+const renderer = new Renderer(div, Renderer.Backends.SVG);
+
+// Configure the rendering context.
+renderer.resize(720, 130);
+const context = renderer.getContext();
+
+// Measure 1
+const staveMeasure1 = new Stave(10, 0, 300);
+staveMeasure1.addClef("treble").addTimeSignature("4/4").setContext(context).draw();
+
+const notesMeasure1 = [
+  new StaveNote({ keys: ["g/4"], duration: "q" }), 
+  new StaveNote({ keys: ["g/4"], duration: "q" }), 
+  new StaveNote({ keys: ["g/4"], duration: "q" }), 
+  new StaveNote({ keys: ["g/4"], duration: "q" })
+];
+
+// Helper function to justify and draw a 4/4 voice
+Formatter.FormatAndDraw(context, staveMeasure1, notesMeasure1);
+
+// Measure 2 - second measure is placed adjacent to first measure.
+const staveMeasure2 = new Stave(staveMeasure1.width + staveMeasure1.x, 0, 400);
+staveMeasure2.setContext(context).draw();
+Formatter.FormatAndDraw(context, staveMeasure2, notesMeasure1);
+
+// Render beams
+beam1.setContext(context).draw();
+beam2.setContext(context).draw();
+</script>
+
+<p>Quarter notes can be divided in half to create 8th notes. When we notate 8th notes we draw a single layer bar over the top, typically connecting a group of 8th notes, as seen below. </p>
+
+<div id="output-eighth"></div>
+
+<script>
+// Create an SVG renderer for eighth notes
+const div2 = document.getElementById("output-eighth");
+const renderer2 = new Renderer(div2, Renderer.Backends.SVG);
+
+// Configure rendering context
+renderer2.resize(720, 130);
+const context2 = renderer2.getContext();
+
+// Measure 1 (8th notes)
+const staveEighth1 = new Stave(10, 0, 300);
+staveEighth1.addClef("treble").addTimeSignature("4/4").setContext(context2).draw();
+
+const notesEighth = [
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" }),
+  new StaveNote({ keys: ["g/4"], duration: "8" })
+];
+
+/* Beam eighth notes in groups of 2 (per beat) */
+
+// Measure 1 beams
+const beamsEighth1 = [];
+for (let i = 0; i < notesEighth.length; i += 2) {
+  const beam = new Beam(notesEighth.slice(i, i + 2));
+  beamsEighth1.push(beam);
+}
+
+// Draw measure 1
+Formatter.FormatAndDraw(context2, staveEighth1, notesEighth);
+// Draw measure 1 beams
+beamsEighth1.forEach(b => b.setContext(context2).draw());
+
+// Measure 2
+const staveEighth2 = new Stave(staveEighth1.width + staveEighth1.x, 0, 400);
+staveEighth2.setContext(context2).draw();
+
+// Clone notes for second measure
+const notesEighth2 = notesEighth.map(note => new StaveNote({ keys: ["g/4"], duration: "8" }));
+
+// Measure 2 beams
+const beamsEighth2 = [];
+for (let i = 0; i < notesEighth2.length; i += 2) {
+  const beam = new Beam(notesEighth2.slice(i, i + 2));
+  beamsEighth2.push(beam);
+}
+
+// Draw measure 2
+Formatter.FormatAndDraw(context2, staveEighth2, notesEighth2);
+// Draw measure 2 beams
+beamsEighth2.forEach(b => b.setContext(context2).draw());
+</script>
+
+
+<p>We can also divide notes in half again to create 16th notes. There are sixteen 16th notes in a measure. Below shows how we notate these 16th notes. </p>
+
+<div id="output-sixteenth"></div>
+
+<script>
+// Create renderer for sixteenth notes
+const div3 = document.getElementById("output-sixteenth");
+const renderer3 = new Renderer(div3, Renderer.Backends.SVG);
+
+renderer3.resize(720, 130);
+const context3 = renderer3.getContext();
+
+// Measure 1 (16th notes)
+const stave16_1 = new Stave(10, 0, 300);
+stave16_1.addClef("treble").addTimeSignature("4/4").setContext(context3).draw();
+
+const notesSixteenth = [];
+for (let i = 0; i < 16; i++) {
+  notesSixteenth.push(new StaveNote({ keys: ["g/4"], duration: "16" }));
+}
+
+/* Beam 16th notes in groups of 4 (per beat) */
+const beams16_1 = [];
+for (let i = 0; i < notesSixteenth.length; i += 4) {
+  const beam = new Beam(notesSixteenth.slice(i, i + 4));
+  beams16_1.push(beam);
+}
+
+// Draw measure 1
+Formatter.FormatAndDraw(context3, stave16_1, notesSixteenth);
+beams16_1.forEach(b => b.setContext(context3).draw());
+
+// Measure 2
+const stave16_2 = new Stave(stave16_1.width + stave16_1.x, 0, 400);
+stave16_2.setContext(context3).draw();
+
+// Clone notes for second measure
+const notesSixteenth2 = notesSixteenth.map(n => new StaveNote({ keys: ["g/4"], duration: "16" }));
+
+const beams16_2 = [];
+for (let i = 0; i < notesSixteenth2.length; i += 4) {
+  const beam = new Beam(notesSixteenth2.slice(i, i + 4));
+  beams16_2.push(beam);
+}
+
+// Draw measure 2
+Formatter.FormatAndDraw(context3, stave16_2, notesSixteenth2);
+beams16_2.forEach(b => b.setContext(context3).draw());
+</script>
+
+<p>For now this gives us enough of a background to start playing these rhythms on the guitar. 
+  Until later we will focus only on songs that are in 4. Songs that have multiples of 3 notes per measure we will revisit later. 
+</p>
+
+<p><strong>Exercise: </strong>
+For the following songs, listen and tap your foot with the beat. After identifying the beats, use the tap tempo feature on the metronome below to find the tempo for the songs. You can check yourself with the tempos given below. Also identify how many beats are in each measure and if there are any "big beats". 
+</p>
+
+<p>
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/Kb7lAMjFuA0?si=TQ8JLZQd4oAXuWea" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+<iframe width="200" height="113" src="https://www.youtube.com/embed/Z2zLSkhANSY?si=eG2x1GLCnr_gN3dz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/lY5i4-rWh44?si=EW0ralPlqY5xIUCS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/LgaIUqH0w6c?si=QZXUcs1QVqKSNGBG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/z0pzzkp85-Q?si=7cxQeJOcowGarg6j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <iframe width="200" height="113" src="https://www.youtube.com/embed/cpbbuaIA3Ds?si=qSnPrwqYRxRyH6P-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</p>
+
+<p>
+  Use this metronome to measure the tempo. Press the finger button and then tap the metronome with the beat of the song. 
+  </p><p>
+<iframe
+  src="https://4four.io/embed/metronome"
+  width="200" height="300"
+  frameborder="0">
+ <a href="https://4four.io/metronome">
+   Metronome
+ </a>
+</iframe>
+</p>
+
+<details>
+  <summary>Click to check answers</summary>
+  <p>
+    Africa - 4 beats per measure, about 92 beats per minute, no significant big-beats/small-beats
+  </p>
+  <p>
+    Little Blue - 4 beats per measure, about 82 beats per minute. You could possibly feel this one twice as fast, with quarter notes around 164 beats per measure. 
+  </p>
+  <p>
+    Norwegian Wood - 3 beats per measure, about 180 beats per minute. You could feel big beats made up of three small beats, which means the big beats are at a tempo of about 60 beats per minute. 
+  </p>
+  <p>
+    Footprints - 3 beats per measure, about 140 beats per minute. The tempo of this one is just right, so there aren't significant big-beats. 
+  </p>
+  <p>
+    Are You Looking Up - 4 beats per measure, about 78 beats per minute. 
+  </p>
+  <p>
+    Money - 7 beats per measure, about 130 beats per minute. 
+  </p>
+</details>
+
+
+<h2>Strumming patterns on the guitar</h2>
+
+<p>When strumming a rhythm or background part on the guitar, we typically use what is called a "grid."
+A grid is a way of dividing up the notes in the measure to determine which notes are downstrokes and which notes are upstrokes. 
+The grid we choose to use is determined by the tempo, number of beats per measure, and the smallest rhythm we need to play. 
+</p>
+
+<p>We will start with the quarter note grid. This is the simplest and most versatile. 
+  The quarter note grid plays 8th notes in a down-up-down-up sequence. 
+</p>
+
+
+
+
+</body>
+</html>
