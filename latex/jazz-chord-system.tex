@@ -1,0 +1,180 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{hyperref}
+\usepackage[width=6in,height=8in]{geometry}
+\usepackage{guitardiagrams}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{amsthm}
+\newtheorem{nrule}{Rule}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
+
+
+
+\title{A Simple System for Jazz Chord Voicings}
+\author{Addison Ballif}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+In this document I will describe one possible system for finding jazz chord voicings on the guitar. While this is only one way to find chord voicings and will not give you all the possible voicings you may want to use, it will give you a significant baseline for being able to play in a jazz setting. 
+
+This chord system is built from a few rules. The first is the most important. The others follow from it. 
+
+\begin{nrule}
+The bass note is played on either the low E or A string. 
+The 3rd and the 7th (or 6th) are played on the D and G strings. 
+The extensions (9th, 11th, 13th) are played on the B and high E strings. 
+\end{nrule}
+
+This chord system does not include the fifth in the chord. This could be an issue for playing diminished or half diminished chords, however omitting a note doesn't explicitly make the voicing wrong, so a minor chord could be used in its place. 
+It could also be advantageous to use a voicing outside of this system for the case of diminished chords. 
+
+Let's start building chords from the bottom up. 
+Suppose we have a chord. We then find a suitable bass note for the chord on either the low E string or the A string. This system invites you to memorize the notes on every fret of the bottom two strings. As it turns out, you won't need to memorize the notes of the other strings if you know the notes of the bottom two strings. 
+
+\begin{exercise}
+Using a random note generator\footnote{There is one on my website found \href{https://ahballif.github.io/AddisonGuitarResources/drones.html}{here.}},
+pick a random note and find it on the low E string and the A string. Repeat until you have found every note at least once. 
+\end{exercise}
+
+Most of the time we choose to put the chord on the E or the A string depending on what makes the voice leading smoother. This means that we choose the location that puts the chord closer to the chord before or the chord to come after. We may also choose the option that is closer to the middle of the neck because it gives us room. 
+
+We are now ready to add the 3rds and 7ths to the voicing. In terms of jazz chords, these are the two most important notes for determining the quality of the chord. 
+
+\begin{nrule}
+If the bass note is on the E string, then the 3rd will be on the G string and the 7th will be on the D string. If the bass note is on the A string, then the 3rd will be on the D string and the 7th will be on the G string. 
+\end{nrule}
+
+\noindent
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=4]{
+    1/2/{R},
+    3/3/{7},
+    4/3/{3}
+}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=5]{
+    2/3/{R},
+    3/2/{3},
+    4/4/{7}
+}
+\end{minipage}
+
+The 3rds and sevents relative to the root position are shown in the drawing above. 
+These are the major 3rds and major 7ths. A minor 7th (or a dominate 7th) is achieved by lowering the major 7ths by a single fret. The 6th is achieved by lowering the 7th by two frets. (When we say 7ths we are treating the 6th as an altered 7th.) Similarly, the minor 3rd is achieved by lowering the 3rd by one fret. As an example see the figure below. 
+
+\begin{figure}[H]
+\noindent
+\textbf{Example:} A Cm$^6$ chord with bass note on both strings. The numbering gives the fret numbers. 
+
+\noindent
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=4]{
+    1/3/{8},
+    3/2/{7},
+    4/3/{8}
+}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=4]{
+    2/3/{3},
+    3/1/{1},
+    4/2/{2}
+}
+\end{minipage}
+\end{figure}
+
+
+\begin{exercise}
+Find voicings for the following chords (root, 3rds, and 7ths only) for root notes placed on both strings: C$\Delta$, G$^7$, Dm$^{(\textrm {\tiny M} 7)}$, Fm$^7$, G$^6$
+\end{exercise}
+
+By now you should be able to play any jazz tune with 3rds and 7ths. In many instances this is perfectly sufficient. For example, when playing with a pianist in the group, it can be useful for the guitar to stick to only the middle two strings. 
+This gives the pianist room to play more extended voicings. It also establishes the guitar's role as a tenor instrument. 
+Guitarists such as Freddie Green (the legendary big band guitarist) thrived by only playing these middle two strings. His approach used only the D string for comping and sometimes the G string for moments that needed extra support. 
+
+In practice the bass notes are rarely played, since they are typically covered by the bass player, but knowing where they fit in the voicing creates a way to locate chords on the neck. Use them to help you find the chords but practice playing the chords without plucking the lower strings. 
+
+\begin{exercise} \label{ex:chunking}
+Choose a jazz standard and play the chords using only the 3rds and 7ths. 
+Play it once by strumming accented quarter notes. Then play it again with improvised rhythmic comping. 
+\end{exercise}
+
+We are now ready to add extensions to our chords. It is common in jazz to add these extensions even when they are not listed in the chord symbol. (In more modern writing this is not as often the case.) If a chord does not list a 13 or 9, it is typically acceptible to add an unaltered 13 and/or 9 to the chord. The 11 is not typically added unless specified or unless the chord is a minor chord. 
+
+\begin{nrule}
+If the bass note is on the low E string, then the 9th will be on the high E string and the 11th/13th will be on the B string. If the bass note is on the A string, then the 9th will be on the B string and the 11th/13th will be on the high E string. 
+\end{nrule}
+
+\noindent
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=4]{
+    1/2/{R},
+    3/3/{7},
+    4/3/{3},
+    5/1/{11},
+    5/4/{13},
+    6/4/{9}
+}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=5]{
+    2/3/{R},
+    3/2/{3},
+    4/4/{7},
+    5/3/{9},
+    6/1/{11},
+    6/5/{13}
+}
+\end{minipage}
+
+The 9th, 11th, and 13th are shown in the drawing above. These are the scale degrees relative to the major scale. It is typical to refer to these scale degrees by their major scale relationships. They can then be flatted or sharped as desired by lowering or raising them by a fret. The $\flat$13 can also be used to play a $\sharp$5 for altered chords. 
+
+\begin{figure}[H]
+\noindent
+\textbf{Example:} A Cm$^{9 \flat 13}$ chord with bass note on both strings. The numbering gives the fret numbers. 
+
+\noindent
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=4]{
+    1/2/{8},
+    3/2/{8},
+    4/2/{8},
+    5/3/{9},
+    6/4/{10}
+}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\fretboard[frets=4]{
+    2/3/{3},
+    3/1/{1},
+    4/3/{3},
+    5/3/{3},
+    6/4/{4}
+}
+\end{minipage}
+\end{figure}
+
+While this chord system allows for using the 11th, there are a few things to keep in mind. Firstly, the system itself does not allow for playing the 11th and 13th at the same time. Usually this is not an issue, but if it is necessary to play both we have options. If the bass note is on the low E string, then we can replace the 7th with the 6th (an octave lower than the 13th) and then play the 11th of the B string. This is not great because it removes the 7th from the scale and it puts the 13th low in the frequency spectrum. Usually we won't do this. If the bass note is on the A string, then we can raise the third to put the eleventh on the D string. This is a common technique especially for chords such as a minor 11 chord, as it creates a modal sound. 
+
+The high E string extensions are not necessarily played all the time. It is not uncommon for only the D, G, and B strings to be plucked. Knowing when to include the high E string and when to omit it can give you a larger pallet of possible sounds. 
+
+\begin{exercise}
+Choose a jazz standard and play the chords with 9s and 13s (and 11s if specified.)
+Play once using only the D, G, and B strings. Then play it again using all four top strings. Use improvised rhythmic comping for both. 
+\end{exercise}
+
+In Exercise \ref{ex:chunking} you were invited to play accented quarter notes one time through. This is often called ``chunking." When chunking we typically only include 3rds and 7ths, and the other extensions are reserved for rhythmic comping. 
+
+
+
+
+
+\end{document}
