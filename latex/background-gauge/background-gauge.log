@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.27)  25 APR 2026 13:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.27)  25 APR 2026 13:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -794,14 +794,8 @@ e 71.
 (pdftex.def)             Requested size: 566.80467pt x 795.93848pt.
 
 [4 <../../other/aFineRomance.pdf>] (./background-gauge.aux)
-
-Package rerunfilecheck Warning: File `background-gauge.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `background-gauge.out':
-(rerunfilecheck)             Before: 8579BE75A6E8A3E5FD90C8C12E408655;543
-(rerunfilecheck)             After:  A3D0BB842EE71CFC9988BD5C95DDE6FC;543.
+Package rerunfilecheck Info: File `background-gauge.out' has not changed.
+(rerunfilecheck)             Checksum: A3D0BB842EE71CFC9988BD5C95DDE6FC;543.
  ) 
 Here is how much of TeX's memory you used:
  20159 strings out of 476025
@@ -814,7 +808,7 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on background-gauge.pdf (4 pages, 649487 bytes).
+Output written on background-gauge.pdf (4 pages, 649486 bytes).
 PDF statistics:
  100 PDF objects out of 1000 (max. 8388607)
  70 compressed objects within 1 object stream
