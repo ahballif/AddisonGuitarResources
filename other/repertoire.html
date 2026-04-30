@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guitar Repertoire</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" type="image/png" href="../art/180630.png">
+</head>
+<body>
+    <h1>Repertoire</h1>
+    <div id="fileLinks"></div>
+
+    <script>
+        // List of files in this directory (excluding this file)
+        const files = [
+            'aFineRomance.pdf',
+            'crippleCreek.pdf',
+            'jesustheverythoughtofthee.pdf',
+            'liberty.pdf',
+            'recordame.pdf'
+        ];
+
+        // Sort alphabetically
+        files.sort();
+
+        // Create links and insert into page
+        const container = document.getElementById('fileLinks');
+        const list = document.createElement('ul');
+
+        files.forEach(file => {
+            const li = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = file;
+            link.textContent = file;
+            li.appendChild(link);
+            list.appendChild(li);
+        });
+
+        container.appendChild(list);
+    </script>
+</body>
+</html>
+
