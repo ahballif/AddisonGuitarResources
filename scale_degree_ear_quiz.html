@@ -85,17 +85,21 @@
         <a href="index.html">Return to home page.</a>
 
         <h1>Scale Degree Ear Quiz</h1>
-        <p>Listen to a root tone followed by an interval tone. Then type the scale degree that matches the second tone relative to the first.</p>
-
-        <p>The major scale degrees are labeled 1 through 7. For example, if the second tone is eight semitones above the root, the answer is <code>6</code>. Use the checkbox to include chromatic degrees like <code>♭2</code>, <code>♯4</code>, <code>♭5</code>, and more. The minor and other scale degrees are labeled relative to the major ones. </p>
+        <p>The following exercise is designed to help train you to hear notes based on their relation to the root of the key. 
+            Upon pressing the "Play Sound" button you will hear a note. This is the root of the key. 
+            A few seconds later you will hear a second note. This is the pitch you are asked to identify. 
+            After listening, enter the scale degree (of the major scale) that describes the second note. 
+        </p>
+        <p>For a more advanced exercise, you can add pitches outside the major scale. To do so, press the checkbox labeled "Include chromatic scale degrees."</p>
+        <p>The quiz will stay in the same key for 20 rounds before changing to a new key. </p>
     </div>
 
     <div class="card">
         <h2 id="question">Ready to listen?</h2>
         <p id="counter" style="color: #6b7280; font-size: 14px; margin: 8px 0 0;"></p>
         <div class="controls">
-            <button id="playButton">Play Interval</button>
-            <button class="secondary" id="nextButton">New Interval</button>
+            <button id="playButton">Play Sound</button>
+            <button class="secondary" id="nextButton">New Note</button>
         </div>
         <input id="answer" placeholder="Enter degree">
         <div class="hint">Answer using numbers or chromatic labels like <code>2</code>, <code>♭3</code>, <code>♯4</code>, <code>5</code>, <code>♭7</code>.</div>
@@ -195,7 +199,7 @@ function playInterval() {
 
 function updateQuestionText() {
     const question = document.getElementById('question');
-    question.textContent = `Listen: root then interval. Guess the scale degree in ${currentRoot}.`;
+    question.textContent = `Guess the scale degree in ${currentRoot}.`;
     const counter = document.getElementById('counter');
     counter.textContent = `${questionCountInKey}/${QUESTIONS_PER_ROOT}`;
 }

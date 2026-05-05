@@ -44,6 +44,46 @@
     .toggle {
         margin-top: 20px;
     }
+    .key-selection {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        margin-top: 20px;
+        text-align: center;
+    }
+    .key-selection label {
+        margin: 5px;
+    }
+    .container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        justify-content: center;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 1200px;
+        flex-wrap: wrap;
+    }
+    .quiz-stack {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: flex-start;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .card {
+        min-width: 260px;
+        flex: 1;
+        max-width: 360px;
+    }
+    .bottom-selection {
+        width: 100%;
+        max-width: 700px;
+        margin: 20px auto 0;
+    }
 </style>
 </head>
 <body>
@@ -52,34 +92,44 @@
 
     <h1>Scale Degrees Quiz</h1>
 
-    <p>Here is a quiz that can help you practice memorizing the notes in each key. 
-        It is useful to know how each note relates to the root of a key.
-        In the game below, you will be prompted with a key and a scale degree.
-        Type the note name of the scale degree in that key. 
-        </p>
-
-        <p>
-        By default the game only uses scale degrees of the major scale.
-        To include all scale degrees, click the checkmark below. 
+    <p>To practice identifying scale degrees based on their note names, use the quiz on the right. 
+        To practice identifying note names based on their scale degree, use the quiz on the left.
+        You can select which keys you want to be included using the settings below. 
     </p>
+    <p>Scale degrees are based on the major scale. To include scale degrees from outside the major scale, select the "Include Chromatic" option at the bottom.</p>
 
-<div class="card">
-    <h2 id="question">Loading...</h2>
-    
-    <input id="answer" placeholder="Answer">
-    <br>
-    <button onclick="checkAnswer()">Submit</button>
-    <button onclick="newQuestion()">Next</button>
+    <img src="latex/circle-of-fifths/keyboard.png" alt="" width="600">
 
-    <p id="result"></p>
+    <div class="container">
+        <div class="quiz-stack">
+            <div class="card">
+                <h2 id="question">Loading...</h2>
+                <input id="answer" placeholder="Answer">
+                <br>
+                <button onclick="checkAnswer()">Submit</button>
+                <button onclick="newQuestion()">Next</button>
+                <p id="result"></p>
+            </div>
 
-    <div class="toggle">
-        <label>
-            <input type="checkbox" id="chromaticToggle">
-            Include chromatic (♭2, ♯4, ♭5, etc.)
-        </label>
+            <div class="card">
+                <h2 id="question2">Loading...</h2>
+                <input id="answer2" placeholder="Answer">
+                <br>
+                <button onclick="checkAnswer2()">Submit</button>
+                <button onclick="newQuestion2()">Next</button>
+                <p id="result2"></p>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="key-selection bottom-selection">
+        <h3>Select Keys to Include:</h3>
+        <label><input type="checkbox" id="group1" checked disabled> C, G, D</label><br>
+        <label><input type="checkbox" id="group2"> F, Bb, Eb</label><br>
+        <label><input type="checkbox" id="group3"> A, E, B</label><br>
+        <label><input type="checkbox" id="group4"> F#, Ab, Db</label><br><br>
+        <label><input type="checkbox" id="chromaticToggle"> Include chromatic (♭2, ♯4, ♭5, etc.)</label>
+    </div>
 
 <script>
 // Standard key roots only (no weird spellings)
@@ -117,6 +167,33 @@ let currentDegree = "";
 let correctPC = 0;
 let correctAnswer = "";
 let nextQuestionTimeout = null;
+let questionsInKey = 0;
+const maxQuestionsPerKey = 5;
+let previousRoot = "";
+let askedDegrees = new Set();
+
+let currentRoot2 = "";
+let currentDegree2 = "";
+let correctDegree2 = "";
+let currentNote2 = "";
+let nextQuestionTimeout2 = null;
+let questionsInKey2 = 0;
+let previousRoot2 = "";
+let askedDegrees2 = new Set();
+
+// Get selected keys based on checkboxes
+function getSelectedKeys() {
+    let selected = [];
+    if (document.getElementById("group1").checked) selected.push("C", "G", "D");
+    if (document.getElementById("group2").checked) selected.push("F", "Bb", "Eb");
+    if (document.getElementById("group3").checked) selected.push("A", "E", "B");
+    if (document.getElementById("group4").checked) selected.push("Gb", "Ab", "Db");
+    // If none selected, default to first group
+    if (selected.length === 0) {
+        selected = ["C", "G", "D"];
+    }
+    return selected;
+}
 
 // Parse user input (handles bb, ##, etc.)
 function parseNote(note) {
@@ -147,7 +224,20 @@ function newQuestion() {
 
     const chromatic = document.getElementById("chromaticToggle").checked;
 
-    currentRoot = roots[Math.floor(Math.random() * roots.length)];
+    let selectedKeys = getSelectedKeys();
+
+    // Change key if we've done max questions or no current key
+    if (questionsInKey >= maxQuestionsPerKey || currentRoot === "") {
+        // Avoid repeating the previous key
+        let availableKeys = selectedKeys.filter(key => key !== previousRoot);
+        if (availableKeys.length === 0) {
+            availableKeys = selectedKeys; // if only one key selected, allow repeat
+        }
+        previousRoot = currentRoot;
+        currentRoot = availableKeys[Math.floor(Math.random() * availableKeys.length)];
+        questionsInKey = 0;
+        askedDegrees = new Set(); // reset asked degrees for new key
+    }
 
     let possibleDegrees = ["1","2","3","4","5","6","7"];
 
@@ -155,7 +245,17 @@ function newQuestion() {
         possibleDegrees.push("♭2","♭3","♯4","♭5","♭6","♭7");
     }
 
-    currentDegree = possibleDegrees[Math.floor(Math.random() * possibleDegrees.length)];
+    // Filter out already asked degrees
+    let availableDegrees = possibleDegrees.filter(deg => !askedDegrees.has(deg));
+
+    // If all degrees asked, reset
+    if (availableDegrees.length === 0) {
+        askedDegrees = new Set();
+        availableDegrees = possibleDegrees;
+    }
+
+    currentDegree = availableDegrees[Math.floor(Math.random() * availableDegrees.length)];
+    askedDegrees.add(currentDegree);
 
     correctPC = (pitchClasses[currentRoot] + degreeMap[currentDegree]) % 12;
     correctAnswer = getNote(correctPC);
@@ -163,6 +263,8 @@ function newQuestion() {
     document.getElementById("question").innerText =
         `What is the ${currentDegree} in ${currentRoot}?`;
     document.getElementById("answer").focus();
+
+    questionsInKey++;
 }
 
 function checkAnswer() {
@@ -188,13 +290,101 @@ function checkAnswer() {
     }
 }
 
+function normalizeDegree(input) {
+    input = input.trim().toLowerCase();
+    input = input.replace(/♭/g, 'b').replace(/♯/g, '#');
+    input = input.replace(/flat/g, 'b').replace(/sharp/g, '#');
+    input = input.replace(/\s+/g, '');
+
+    const map = {
+        '1':'1', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7',
+        'b2':'♭2', 'bb2':'♭2', 'b3':'♭3', 'bb3':'♭3',
+        '#4':'♯4', 'sharp4':'♯4',
+        'b5':'♭5', 'bb5':'♭5',
+        'b6':'♭6', 'bb6':'♭6',
+        'b7':'♭7', 'bb7':'♭7'
+    };
+
+    return map[input] || null;
+}
+
+function newQuestion2() {
+    document.getElementById("result2").innerText = "";
+    const answerInput = document.getElementById("answer2");
+    answerInput.value = "";
+
+    const chromatic = document.getElementById("chromaticToggle").checked;
+    let selectedKeys = getSelectedKeys();
+
+    if (questionsInKey2 >= maxQuestionsPerKey || currentRoot2 === "") {
+        let availableKeys = selectedKeys.filter(key => key !== previousRoot2);
+        if (availableKeys.length === 0) {
+            availableKeys = selectedKeys;
+        }
+        previousRoot2 = currentRoot2;
+        currentRoot2 = availableKeys[Math.floor(Math.random() * availableKeys.length)];
+        questionsInKey2 = 0;
+        askedDegrees2 = new Set();
+    }
+
+    let possibleDegrees = ["1","2","3","4","5","6","7"];
+    if (chromatic) {
+        possibleDegrees.push("♭2","♭3","♯4","♭5","♭6","♭7");
+    }
+
+    let availableDegrees = possibleDegrees.filter(deg => !askedDegrees2.has(deg));
+    if (availableDegrees.length === 0) {
+        askedDegrees2 = new Set();
+        availableDegrees = possibleDegrees;
+    }
+
+    currentDegree2 = availableDegrees[Math.floor(Math.random() * availableDegrees.length)];
+    askedDegrees2.add(currentDegree2);
+
+    const pc = (pitchClasses[currentRoot2] + degreeMap[currentDegree2]) % 12;
+    currentNote2 = getNote(pc);
+    correctDegree2 = currentDegree2;
+
+    document.getElementById("question2").innerText =
+        `What is the scale degree of ${currentNote2} in ${currentRoot2}?`;
+    answerInput.focus();
+    questionsInKey2++;
+}
+
+function checkAnswer2() {
+    let userInput = document.getElementById("answer2").value;
+    let normalized = normalizeDegree(userInput);
+
+    if (!normalized) {
+        document.getElementById("result2").innerText = "⚠️ Invalid input";
+        document.getElementById("answer2").focus();
+        return;
+    }
+
+    if (normalized === correctDegree2) {
+        document.getElementById("result2").innerText = "✅ Correct!";
+        clearTimeout(nextQuestionTimeout2);
+        nextQuestionTimeout2 = setTimeout(() => {
+            newQuestion2();
+        }, 1000);
+    } else {
+        document.getElementById("result2").innerText =
+            `❌ Correct answer: ${correctDegree2}`;
+        document.getElementById("answer2").focus();
+    }
+}
+
 // Enter key submits
 document.getElementById("answer").addEventListener("keydown", function(e) {
     if (e.key === "Enter") checkAnswer();
 });
+document.getElementById("answer2").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkAnswer2();
+});
 
 // Start
 newQuestion();
+newQuestion2();
 </script>
 
 </body>
