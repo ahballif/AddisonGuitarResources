@@ -5,6 +5,9 @@
 \usepackage{graphicx}
 \usepackage{float}
 
+\usepackage{tabularx}
+\usepackage{booktabs}
+
 \usepackage{tikz}
 \usepackage{amsmath}
 \usepackage{amsthm}
@@ -21,15 +24,36 @@
 
 \maketitle
 
-There is a lot of structure in music. As this structure is commonly reused in different pieces, it is very useful to be aware of many of the patterns that go on. In this document I hope to explain the concept of keys, how notes fit into each key, and what the purpose of the chords is for a given key. This document should teach you how to know if a certain chord should be major or minor in a given context and should hopefully help open your ears to hear music in a new way. 
+There is a lot of structure in music. As this structure is commonly reused in different pieces, it is very useful to be aware of many of the patterns that go on. In this document I hope to explain the concept of 
+\begin{itemize}
+\item keys,
+\item how notes fit into each key,
+\item chords and their purpose,
+\item how to know which chords to use.
+\end{itemize}
+This document should hopefully help open your ears to hear music in a new way. 
 
 \section{Background}
-Before we can talk about keys we need to first talk about notes. 
-A note is a pitch with a specific frequency. On the other hand, chords are sounds that play a collection of frequencies as the same time. 
-When we sing, we sing notes. We cannot sing chords, but instruments such as the paino or the guitar can play chords. 
+Before we can talk about keys we need to first talk about notes and the difference between notes and chords. 
 
-Each note has a name. Understanding the names of the notes is an essential starting place. The chords are named based on the notes they contain, so we must first know the names of the notes. 
-Below is a piano keyboard that gives the ordering of the different notes. 
+\vspace{0.5cm}
+\noindent
+\begin{tabularx}{\textwidth}{ 
+  >{\hsize=0.75\hsize}X 
+  >{\hsize=1.25\hsize}X 
+}
+    \toprule
+    \textbf{Notes} & \textbf{Chords} \\
+    \midrule
+    A note is a pitch with a specific frequency. & A chord is a collection of frequencies at the same time. \\ \addlinespace
+    We can sing notes. & We cannot sing chords, though instruments such as piano and guitar can play chords. \\ \addlinespace
+    Each note has a name. & The name of the chord depends on the notes in the chord, and one chord may have multiple names. \\
+    \bottomrule
+\end{tabularx}
+\vspace{0.5cm}
+
+\newpage
+Below is a piano keyboard that gives the ordering of the different notes and their names. 
 
 \begin{center}
 \includegraphics[width=0.9\linewidth]{keyboard.png}
@@ -37,10 +61,13 @@ Below is a piano keyboard that gives the ordering of the different notes.
 
 As you can see on the keyboard above, we label the notes using 7 letters of the alphabet. (You can ignore the numbers on the figure for now.)
 On the piano we label the white keys with the letters A through G, and then repeat. There are a five notes that lie in between the white keys. These are labeled by taking the note below (or above) and adding a sharp $\sharp$ (or a flat $\flat$) to the note. 
-Because these notes can be labeled above or below, they have two names to represent the same thing. This may seem redundant, but it is important to have both when we get to creating scales of notes. 
+Because these notes can be labeled above or below, they have two names to represent the same thing. 
+$$ \text C \sharp = \text D \flat, \hspace{0.5cm} \text D \sharp = \text E \flat, \hspace{0.5cm} \text F \sharp = \text G \flat, \hspace{0.5cm} \text{etc.}$$
+This may seem redundant, but it is important to have both when we get to creating scales of notes. 
 
 Notice that after 12 notes the pattern repeats. The piano keyboard looks exactly the same after playing each of the 12 notes (including the black keys). The distance of 12 notes is called an octave. 
 
+\newpage
 \section{Keys and Tonal Centers}
 
 Much of the music we listen to today has what is called a key. 
@@ -72,7 +99,7 @@ Notice in the example above the last two selections, which are the same piece bu
 It is common for singers to change the key of a song in order to fit their vocal range. 
 Doing so does not change the recognizability or structure of the melody. 
 
-\newpage
+
 \begin{exercise} \label{ex:findkeys}
 With the aid of a keyboard or notemaking tool, identify the key of the following tunes. 
 \begin{itemize}
@@ -85,6 +112,7 @@ With the aid of a keyboard or notemaking tool, identify the key of the following
 
 You can find the answers for this exercise at the end of this document.
 
+\newpage
 \section{The Major Scale}
 Once the key has been identified, we then need a way of describing the overall sound of the song in that key.
 This is determined by the other notes that we choose to include. 
@@ -157,7 +185,12 @@ Use the \href{https://ahballif.github.io/AddisonGuitarResources/scale_degree_ear
 In Exercise \ref{ex:writeScales} you named the notes of each of the major scales. You should have noticed that by using the rule that each letter is only used once, a scale only has flats or sharps but not both. The number of flats or sharps is called the key signature. 
 We might say ``the key signature has 3 flats'' and if that were so then we would call the key E$\flat$ major. 
 
+\begin{exercise}
+Sharps and flats are added to a key signature. Determine the order that sharps are added and the order that flats are added. 
+For example, the first sharp to be added is F$\sharp$ since G major has one sharp. D major is the key with two sharps, and the first one is F$\sharp$. What is the second?
+\end{exercise}
 
+\newpage
 \section{The Circle of Fifths}
 A powerful way of organizing the twelve different keys is using a cycle structure known as the circle of fifths (or circle of fourths). 
 The circle is shown below. 
@@ -187,10 +220,14 @@ The circle is shown below.
 \end{center}
 
 The ordering of the notes is chosen so that each of the notes is a fourth or fifth away (depending on whether you move up or down).
-This choice creates some very useful structure. Every time we move clockwise by one step, the major scale key signature gains one sharp (or loses one flat).
-If we move counter clockwise, the major scale gains a flat (or loses a sharp). 
-In the previous section we mentioned that knowing how many sharps or flats a major key has determines the key.
-The order that we add sharps and flats is also determined by the circle of fifths. Starting with F$\sharp$, we add sharps in the order F, C, G, $\dots$. When adding with flats we start with B$\flat$ and move the other direction. 
+This choice creates some useful structure, and there are several things we can notice. 
+There are several things we can notice about the structure. 
+\begin{itemize}
+\item Every time we move clockwise we lose one flat or gain one sharp.
+\item Every time we move counterclockwise we lose one sharp or gain one flat.
+\item The clockwise follows the order that sharps are added starting on F. 
+\item the order counter clockwise follows the order that flats are added starting on B. 
+\end{itemize}
 
 \begin{exercise}
 Repeat Exercise \ref{ex:writeScales} but do it in the order given by the circle of fifths, and use the circle and the things you have learned about key signatures to help you. You should find that this process is quicker than counting the number of half steps between notes. 
@@ -223,7 +260,12 @@ The circle of fifths also identifies many patterns that we find in popular music
 \end{tikzpicture}
 \end{center}
 
-Notice the structure. The four chords are determined by the root and its two neighbors, as well as the minor chord 4 notes in the clockwise direction. Thus in G major we would have G, C, D, and E minor as our four chords. If we keep the structure the same but rotate only the notes, we can find the 4 chords for any possible key. 
+Notice the structure. 
+\begin{center}
+    The four chords are determined by the root and its two neighbors, as well as the minor chord 4 notes in the clockwise direction.
+\end{center} 
+Thus in G major we would have G, C, D, and E minor as our four chords. 
+If we keep the structure the same but rotate only the notes, we can find the 4 chords for any possible key. 
 
 We might also label these chords based on their scale degree. In G major, C would make the IV chord, D would make the V chord, and Em would make the vi chord. We often use capital Roman numerals for major chords and lower case Roman numerals for minor chords. 
 
