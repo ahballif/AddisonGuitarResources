@@ -220,6 +220,10 @@ function newQuestion() {
     const rootPC = pitchClasses[currentRoot];
     currentRootFreq = pitchClassToFrequency(rootPC);
     currentTargetFreq = pitchClassToFrequency(rootPC + correctIntervalPC);
+    const lowerOctave = Math.random() < 0.5;
+    if (lowerOctave) {
+        currentTargetFreq = currentTargetFreq / 2;
+    }
     document.getElementById('result').textContent = '';
     const answerInput = document.getElementById('answer');
     answerInput.value = '';
